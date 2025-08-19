@@ -6,6 +6,14 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local')
 }
 
+// Extend the global type to include mongoose
+declare global {
+  var mongoose: {
+    conn: any;
+    promise: any;
+  } | undefined;
+}
+
 /**
  * Global is used here to maintain a cached connection across hot reloads
  * in development. This prevents connections growing exponentially
