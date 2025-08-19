@@ -105,7 +105,9 @@ const maintenanceSchema = new Schema<IMaintenance>({
     preventiveMeasures: [String]
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
 })
 
 // Indexes for better query performance
