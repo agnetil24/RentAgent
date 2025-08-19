@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create Stripe subscription
-    const subscription = await createSubscription(stripeCustomerId, priceId, {
+    const subscription: any = await createSubscription(stripeCustomerId, priceId, {
       userId: user._id.toString(),
       plan,
       email: user.email
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       subscriptionId: subscription.id,
-      clientSecret: subscription.latest_invoice?.payment_intent?.client_secret,
+      clientSecret: subscription.latest_invoice?.payment_intent?.client_secret || null,
       status: subscription.status
     })
 
