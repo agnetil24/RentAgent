@@ -115,7 +115,7 @@ maintenanceSchema.index({ reportedDate: 1 })
 maintenanceSchema.index({ scheduledDate: 1 })
 
 // Virtual for days since reported
-maintenanceSchema.virtual('daysSinceReported').get(function() {
+maintenanceSchema.virtual('daysSinceReported').get(function(this: any) {
   const now = new Date()
   const reported = new Date(this.reportedDate)
   const diffTime = now.getTime() - reported.getTime()
@@ -123,7 +123,7 @@ maintenanceSchema.virtual('daysSinceReported').get(function() {
 })
 
 // Virtual for is overdue
-maintenanceSchema.virtual('isOverdue').get(function() {
+maintenanceSchema.virtual('isOverdue').get(function(this: any) {
   if (this.status === 'completed' || this.status === 'cancelled') {
     return false
   }
@@ -143,7 +143,7 @@ maintenanceSchema.virtual('isOverdue').get(function() {
 })
 
 // Virtual for cost variance
-maintenanceSchema.virtual('costVariance').get(function() {
+maintenanceSchema.virtual('costVariance').get(function(this: any) {
   if (!this.estimatedCost || !this.actualCost) return null
   return this.actualCost - this.estimatedCost
 })
