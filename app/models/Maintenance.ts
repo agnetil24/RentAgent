@@ -137,16 +137,16 @@ maintenanceSchema.virtual('isOverdue').get(function(this: any) {
   
   // High priority should be addressed within 24 hours
   if (this.priority === 'high' || this.priority === 'emergency') {
-    return this.daysSinceReported > 1
+    return (this as any).daysSinceReported > 1
   }
   
   // Medium priority should be addressed within 3 days
   if (this.priority === 'medium') {
-    return this.daysSinceReported > 3
+    return (this as any).daysSinceReported > 3
   }
   
   // Low priority should be addressed within 7 days
-  return this.daysSinceReported > 7
+  return (this as any).daysSinceReported > 7
 })
 
 // Virtual for cost variance
