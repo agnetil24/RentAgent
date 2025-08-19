@@ -26,6 +26,11 @@ export interface IMaintenance extends Document {
   }
   createdAt: Date
   updatedAt: Date
+  
+  // Virtual properties
+  daysSinceReported: number
+  isOverdue: boolean
+  costVariance: number | null
 }
 
 const maintenanceSchema = new Schema<IMaintenance>({
