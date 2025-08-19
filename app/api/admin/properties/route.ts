@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { connectToDatabase } from '@/app/lib/db'
+import dbConnect from '@/app/lib/db'
 import Property from '@/app/models/Property'
 import { verifyToken } from '@/app/lib/auth'
 
@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Fetch all properties with pagination and filtering
     const { searchParams } = new URL(request.url)
@@ -108,7 +108,7 @@ export async function PUT(request: NextRequest) {
     }
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Update property (excluding sensitive fields)
     const allowedUpdates = ['name', 'type', 'address', 'status', 'financial', 'occupancy', 'description']
@@ -162,7 +162,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Soft delete property (set status to 'deleted' instead of actually deleting)
     const updatedProperty = await Property.findByIdAndUpdate(

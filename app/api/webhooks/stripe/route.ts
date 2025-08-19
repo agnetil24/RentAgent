@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { constructWebhookEvent } from '@/app/lib/stripe'
-import { connectToDatabase } from '@/app/lib/db'
+import dbConnect from '@/app/lib/db'
 import Payment from '@/app/models/Payment'
 import User from '@/app/models/User'
 import Property from '@/app/models/Property'
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     const event = constructWebhookEvent(body, signature)
     
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Handle different event types
     switch (event.type) {

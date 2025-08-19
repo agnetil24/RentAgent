@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { connectToDatabase } from '@/app/lib/db'
+import dbConnect from '@/app/lib/db'
 import User from '@/app/models/User'
 import { verifyToken } from '@/app/lib/auth'
 
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     // In production, you should check for admin role
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Fetch all users with pagination
     const { searchParams } = new URL(request.url)
@@ -106,7 +106,7 @@ export async function PUT(request: NextRequest) {
     }
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Update user (excluding sensitive fields)
     const allowedUpdates = ['firstName', 'lastName', 'companyName', 'isActive', 'isVerified', 'subscription']
@@ -160,7 +160,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Soft delete user (set isActive to false instead of actually deleting)
     const updatedUser = await User.findByIdAndUpdate(

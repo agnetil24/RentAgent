@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { connectToDatabase } from '@/app/lib/db'
+import dbConnect from '@/app/lib/db'
 import User from '@/app/models/User'
 import Property from '@/app/models/Property'
 import Payment from '@/app/models/Payment'
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Get current date and calculate date ranges
     const now = new Date()

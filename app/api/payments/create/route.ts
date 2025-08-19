@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createPaymentIntent, createCustomer } from '@/app/lib/stripe'
-import { connectToDatabase } from '@/app/lib/db'
+import dbConnect from '@/app/lib/db'
 import { verifyToken } from '@/app/lib/auth'
 import Payment from '@/app/models/Payment'
 import User from '@/app/models/User'
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Connect to database
-    await connectToDatabase()
+    await dbConnect()
 
     // Get user details
     const user = await User.findById(decoded.userId)
